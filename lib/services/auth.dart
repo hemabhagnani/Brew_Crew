@@ -8,6 +8,10 @@ class AuthService{
   {
     return user!= null ? User(Uid:user.uid):null;
   }
+  //create Stream of Firebase Users
+  Stream<FirebaseUser> get user{
+    return _auth.onAuthStateChanged;
+  }
   //sign in anon
   Future signInAnon() async{
     try{
