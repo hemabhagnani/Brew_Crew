@@ -10,8 +10,10 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final AuthService _auth= AuthService();
+  final _formKey=GlobalKey<FormState>();
   String email="";
   String password="";
+  String error="";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,17 +34,19 @@ class _SignInState extends State<SignIn> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical:9.0 ,horizontal:20.0 ),
         child: Form(
+            key:_formKey,
           child:Column(
             children: <Widget>[
               SizedBox(height: 10.0),
               TextFormField(
-
+                validator: (val)=>val.isEmpty ? "Please Eneter Email":null,
                 onChanged: (val){
                   setState(()=>email=val);
                 },
               ),
               SizedBox(height: 10.0),
               TextFormField(
+                validator: (val)=>val.length <6 ? "Enter Password":null,
               obscureText: true,
                 onChanged: (val){
                 setState(()=>password=val);
@@ -53,10 +57,20 @@ class _SignInState extends State<SignIn> {
               RaisedButton(
                 child: Text("Sign In"),
                 onPressed: (){
-                  print(email);
-                  print(password);
+                  if(_formKey.currentState.validate())
+                  {
+                    dynamic result=_auth.signInWithEmailandPassword(email:email, password:password);
+                    if(result==null)
+                    {
+                      setState(() {
+                        error="Some Error occured";
+                      });
+                    }
+                  }
                 },
-              )
+              ),
+              SizedBox(height: 10.0),
+              Text(error),
 
             ],
           )
