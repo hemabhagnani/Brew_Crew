@@ -46,6 +46,18 @@ class _RegisterState extends State<Register> {
                   ),
                   SizedBox(height: 10.0),
                   TextFormField(
+                    decoration:InputDecoration(
+                      hintText: "Email",
+                      fillColor: Colors.white,
+                      filled: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:BorderSide(color: Colors.white,width: 2.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:BorderSide(color: Colors.pink,width: 2.0),
+                      ),
+
+                    ),
                     validator: (val)=>val.length <6 ? "Enter Password greater than 6 characters":null,
                     obscureText: true,
                     onChanged: (val){
