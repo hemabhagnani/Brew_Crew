@@ -6,9 +6,8 @@ class DataBase {
 
   final brews = Firestore.instance.collection('brews');
 
-  Future updateUserData(String sugar , String name , int strength)
-  {
-    return brews.document(uid).setData( {
+  Future updateUserData(String sugar , String name , int strength) async {
+    return await brews.document(uid).setData( {
       'sugar' : sugar,
       'name' : name,
       'strength' : strength
