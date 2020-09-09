@@ -9,6 +9,15 @@ class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
+    void _showBottomSetting()
+    {
+        showModalBottomSheet(context: context, builder:(context){
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 60.0,vertical: 20.0),
+            child: Text('Bottom up settings bar'),
+          );
+        });
+    }
     return StreamProvider<List<Brew>>.value(
       value: DataBase().brews,
       child: Scaffold(
@@ -17,7 +26,12 @@ class Home extends StatelessWidget {
           backgroundColor: Colors.brown[400],
           title: Text("Welcome"),
           actions: <Widget>[
-            FlatButton.icon(onPressed: () async{ await _auth.signOut();}, icon: Icon(Icons.person), label: Text("Logout"))
+            FlatButton.icon(onPressed: () async{ await _auth.signOut();}, icon: Icon(Icons.person), label: Text("Logout")),
+            FlatButton.icon(
+                icon: Icon(Icons.settings),
+                label: Text('Setting'),
+              onPressed: () => _showBottomSetting(),
+            )
           ],
         ),
         body: BrewList(),
