@@ -7,10 +7,10 @@ class DatabaseService{
   //uid links the firebase user uid to the key to userdatabse
   DatabaseService({this.uid});
   final CollectionReference brewCollection=Firestore.instance.collection("brews");
-  Future updateUserDatabase(String sugars,String name, String strength) async{
-    //create a newdocument using uid as key
+  Future updateUserDatabase(String sugars,String name, int strength) async{
+    //create a new document using uid as key
     return await brewCollection.document(uid).setData(
-        {'sugar': sugars,
+        {'sugars': sugars,
           'name': name,
           'strength': strength,
         }
@@ -19,9 +19,10 @@ class DatabaseService{
   List<Brew> _brewListFromSnapshot(QuerySnapshot snapshot)
   {
     return snapshot.documents.map((doc) {
-      return Brew(name:doc.data['name']??"",
-          sugars: doc.data['sugars']??"0",
-          strength: doc.data['strength']??0
+      return Brew(
+          name:doc.data['name'] ?? '',
+          strength: doc.data['strength'] ?? 0,
+          sugars: doc.data['sugars'] ?? "0"
       );
     }).toList();
   }

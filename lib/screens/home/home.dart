@@ -8,8 +8,10 @@ class Home extends StatelessWidget {
   final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
+    print("3rd");
     return StreamProvider<List<Brew>>.value(
       value:DatabaseService().brews,
+      initialData: List(),
       child: Scaffold(
         backgroundColor: Colors.brown[50],
         appBar: AppBar(
