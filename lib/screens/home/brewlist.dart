@@ -13,7 +13,7 @@ class _BrewListState extends State<BrewList> {
   Widget build(BuildContext context) {
     final brews = Provider.of<List<Brew>>(context);
     return ListView.builder(
-        itemCount: brews.length,
+        itemCount: brews == null ? 0 : brews.length,
         itemBuilder:(context,index){
           return BrewTile(brew : brews[index]);
         });
